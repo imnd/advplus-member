@@ -1,0 +1,27 @@
+@if (currentUser().isProcessing) {
+  <div class="card mb-5 mb-xl-10 border border-portal border-1">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-4">
+          <img class="img-fluid" alt="PassKit" ngSrc="/media/images/renewal.jpg" height="530" width="800" />
+        </div>
+        <div class="col-sm-7">
+          <div class="mt-5 fw-bold text-gray-600">
+            <h4 class="text-gray-800 fw-bolder mb-5">Your membership is about to start</h4>
+            <p class="mb-5 mt-5">
+              Thank you for joining. Your membership start date
+              is
+              <strong class="text-nowrap">{{ currentUser().start_date }}</strong>
+              .
+            </p>
+            <div class="d-md-block">
+              We will generate the membership card once your membership is active. Please come back on
+              <strong class="text-nowrap">{{ currentUser().start_date }}</strong> and download your card below.
+            </div>
+            <p class="sm-text mb-0 mt-5">In the meantime, feel free to peruse all the offers and club information.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,48 @@
+<div
+  id="kt_header"
+  class="header align-items-stretch"
+  [attr.data-kt-sticky]="isHeaderSticky()"
+  data-kt-sticky-name="header"
+  data-kt-sticky-animation="false"
+  data-kt-sticky-offset="{default: '0px', lg: '0px'}"
+>
+  <div
+    [class]="{
+      'container-fluid': headerWidthFluid(),
+      'container-xxl': !headerWidthFluid(),
+    }"
+    class="d-flex align-items-center bg-white"
+  >
+    @if (themeLightLogo()) {
+      <div class="header-logo me-5 me-md-10 flex-grow-1 flex-lg-grow-0">
+        <a routerLink="/">
+          <img alt="Logo" [src]="themeLightLogo()" class="logo-default h-50px" />
+          <img alt="Logo" [src]="themeLightLogo()" class="logo-sticky h-50px" />
+        </a>
+      </div>
+    }
+
+    <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
+      <div class="d-flex align-items-stretch" id="kt_header_nav">
+        <app-menu />
+      </div>
+
+      <div class="d-flex align-items-stretch flex-shrink-0 me-5">
+        <app-topbar />
+      </div>
+
+    </div>
+    @if (!isMembershipExpired()) {
+      <div class="d-flex align-items-center d-lg-none" title="Show aside menu">
+        <div
+          class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"
+          id="kt_header_menu_mobile_toggle"
+        >
+          <span class="svg-icon svg-icon-2x">
+            <app-inline-svg src="/media/icons/duotune/abstract/abs015.svg" />
+          </span>
+        </div>
+      </div>
+    }
+  </div>
+</div>

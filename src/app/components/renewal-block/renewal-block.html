@@ -1,0 +1,34 @@
+@if (currentUser().renewal_url) {
+  <div class="card mb-5 mb-xl-10 border border-danger border-2 border-dashed">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-4">
+          <img class="img-fluid" alt="PassKit" ngSrc="/media/images/renewal.jpg" height="530" width="800" />
+        </div>
+        <div class="col-sm-7">
+          <div class="mt-5 fw-bold text-gray-600">
+            <h4 class="text-gray-800 fw-bolder">Membership renewal</h4>
+            <p class="mb-5">
+              You can easily renew your membership using the 'Renew Now' button. The process is very similar to the membership purchase you already know. Your information is already prepopulated, but you upgrade/downgrade the package and change clubs.
+            </p>
+            <div class="d-flex justify-content-center d-md-block">
+              <a [href]="currentUser().renewal_url" target="_blank" class="fw-bolder">
+                <button class="btn" [class]="{
+                  'btn-portal': !isMembershipExpired(),
+                  'btn-danger': isMembershipExpired()
+                }">
+                  Renew Now
+                </button>
+              </a>
+            </div>
+            <p class="sm-text mb-0 mt-5">
+              The renewal date and changes will occur upon the current membership expiry, and you can choose to delay
+              the start if you wish. If you have any questions, drop us a
+              <a [href]="currentUser()?.portal?.whatsapp_url" target="_blank">WhatsApp</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

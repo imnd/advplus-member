@@ -1,0 +1,130 @@
+<div
+  class="header-menu align-items-stretch"
+  data-kt-drawer="true"
+  data-kt-drawer-name="header-menu"
+  data-kt-drawer-activate="{default: true, lg: false}"
+  data-kt-drawer-overlay="true"
+  data-kt-drawer-width="{default:'200px', '300px': '250px'}"
+  data-kt-drawer-direction="end"
+  data-kt-drawer-toggle="#kt_header_menu_mobile_toggle"
+  data-kt-place="true"
+  data-kt-place-mode="prepend"
+  data-kt-place-parent="{default: '#app', lg: '#app'}"
+>
+  <div
+    class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
+    id="#kt_header_menu"
+    data-kt-menu="true"
+  >
+    @for (item of mainMenuConfig; track item) {
+      @if (!item.heading) {
+        @for (menuItem of item.pages; track $index) {
+          @if (menuItem.heading) {
+            <div class="menu-item me-lg-1">
+              <a class="menu-link" routerLinkActive="active" [routerLink]="menuItem.route">
+                <span class="menu-title">{{ translate(menuItem.heading) }}</span>
+              </a>
+            </div>
+          }
+        }
+      }
+
+      @if (item.heading) {
+        <div
+          data-kt-menu-trigger="click"
+          data-kt-menu-placement="bottom-start"
+          class="menu-item menu-lg-down-accordion me-lg-1"
+        >
+          <span class="menu-link py-3" [class.active]="hasActiveChildren(item.route)">
+            <span class="menu-title">{{ translate(item.heading) }}</span>
+            <span class="menu-arrow d-lg-none"></span>
+          </span>
+
+          <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+            @for (menuItem of item.pages; track $index) {
+              @if (menuItem.sectionTitle) {
+                <div
+                  data-kt-menu-trigger="{default:'click', lg: 'hover'}"
+                  data-kt-menu-placement="right-start"
+                  class="menu-item menu-lg-down-accordion"
+                >
+                  <span class="menu-link py-3" [class.active]="hasActiveChildren(menuItem.route)">
+                    <span class="menu-icon">
+                      @if (headerMenuIcons() === 'font') {
+                        <i [class]="menuItem.fontIcon" class="bi fs-3"></i>
+                      }
+                      @if (headerMenuIcons() === 'svg') {
+                        <span class="svg-icon svg-icon-2">
+                          <app-inline-svg [src]="menuItem.svgIcon ?? ''"></app-inline-svg>
+                        </span>
+                      }
+                    </span>
+                    <span class="menu-title">{{ translate(menuItem.sectionTitle) }}</span>
+                    <span class="menu-arrow"></span>
+                  </span>
+
+                  <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
+                    @for (menuSubItem of menuItem.sub; track $index) {
+                      @if (menuSubItem.sectionTitle) {
+                        <div
+                          data-kt-menu-trigger="{default:'click', lg: 'hover'}"
+                          data-kt-menu-placement="right-start"
+                          class="menu-item menu-lg-down-accordion"
+                        >
+                          <span class="menu-link py-3" [class.active]="hasActiveChildren(menuSubItem.route)">
+                            <span class="menu-bullet">
+                              <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">{{ translate(menuSubItem.sectionTitle) }}</span>
+                            <span class="menu-arrow"></span>
+                          </span>
+
+                          <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
+                            @for (menuItem2 of menuSubItem.sub; track $index) {
+                              <div class="menu-item">
+                                <a class="menu-link py-3" routerLinkActive="active" [routerLink]="menuItem2.route">
+                                  <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                  </span>
+                                  <span class="menu-title">{{ translate(menuItem2.heading) }}</span>
+                                </a>
+                              </div>
+                            }
+                          </div>
+                        </div>
+                      }
+
+                      @if (menuSubItem.heading) {
+                        <div class="menu-item">
+                          <a class="menu-link" routerLinkActive="active" [routerLink]="menuSubItem.route">
+                            <span class="menu-bullet">
+                              <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">{{ translate(menuSubItem.heading) }}</span>
+                          </a>
+                        </div>
+                      }
+                    }
+                  </div>
+                </div>
+              }
+
+              @if (menuItem.heading) {
+                <div class="menu-item">
+                  <a class="menu-link" routerLinkActive="active" [routerLink]="menuItem.route">
+                    <span class="menu-icon">
+                      <span class="svg-icon svg-icon-2">
+                        <app-inline-svg src="/media/icons/duotune/layouts/lay009.svg"></app-inline-svg>
+                      </span>
+                    </span>
+                    <span class="menu-title">{{ translate(menuItem.heading) }}</span>
+                  </a>
+                </div>
+              }
+            }
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>

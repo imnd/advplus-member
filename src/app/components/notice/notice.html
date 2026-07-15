@@ -1,0 +1,44 @@
+<div
+  [class]="`
+    notice
+    d-flex
+    bg-light-${color}
+    rounded
+    border-${color}
+    border
+    border-dashed
+    ${classes}
+    ${padding}
+  `"
+>
+  @if (icon) {
+    <span [class]="`svg-icon svg-icon-2tx svg-icon-${color} me-4 ms-15 ms-lg-15`">
+      <app-inline-svg [src]="icon" />
+    </span>
+  }
+
+  <div class="d-flex flex-stack flex-grow-1">
+    @if (body || title) {
+      <div [class]="`fw-bold ${button}`">
+        @if (title) {
+          <h4 class="text-gray-900 fw-bolder">{{ title }}</h4>
+        }
+        @if (body) {
+          <div [innerHTML]="body" [class]="`fs-6 text-gray-700 pe-7`"></div>
+        }
+      </div>
+    }
+
+    @if (button) {
+      <a
+        [href]="buttonUrl"
+        [class]="`btn btn-${color} px-6 align-self-center text-nowrap`"
+        [attr.data-bs-toggle]="buttonModalId ? 'modal' : false"
+        [attr.data-bs-target]="buttonModalId ? buttonModalId : false"
+      >
+        {{ buttonLabel }}
+      </a>
+    }
+
+  </div>
+</div>

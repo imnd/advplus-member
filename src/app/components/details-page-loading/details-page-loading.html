@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-12 col-md-4">
+    <div class="position-relative">
+      <div class="overlay overlay-show">
+        <app-skeleton-item
+          variant="image"
+          class="bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-250px"
+        />
+      </div>
+    </div>
+    <div class="card my-4">
+      <div class="card-body">
+        <app-skeleton-item variant="text" class="w-25" />
+        <app-skeleton-item variant="text" class="w-100" />
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-8">
+    <div class="card">
+      <div class="card-body">
+        <app-skeleton [rows]="5" />
+      </div>
+    </div>
+  </div>
+</div>

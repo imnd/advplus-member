@@ -1,0 +1,65 @@
+.add-to-favorites,
+.favorite {
+    height: 28px;
+    top: 16px;
+}
+
+.badge {
+    &.add-to-favorites,
+    &.favorite {
+        width: 28px;
+        position: absolute;
+        border: none;
+        border-radius: 50% !important;
+    }
+    &.add-to-favorites {
+        background-color: #fff !important;
+        .bi.bi-star-fill {
+            color: #65cdd9 !important;
+        }
+        .bi.bi-star-fill:hover {
+            color: #ffa300 !important;
+        }
+    }
+    &.favorite {
+        --bg-color: 255, 199, 0;
+        --bs-bg-opacity: 1;
+        background-color: rgba(var(--bs-warning-rgb), var(--bs-bg-opacity)) !important;
+        .bi.bi-star-fill {
+            color: #fff !important;
+        }
+    }
+}
+
+.button {
+    &.add-to-favorites,
+    &.favorite {
+        margin-top: 8px;
+        --bg-color: 255, 255, 255;
+        background-color: #fff !important;
+        border-radius: 50rem !important;
+        border: 1px solid !important;
+        .bi.bi-star-fill,
+        .bi.bi-star {
+            margin-right: 6px;
+        }
+        span {
+            font-weight: normal;
+            text-transform: uppercase !important;
+        }
+    }
+    &.add-to-favorites {
+        width: 160px;
+        border-color: #dfe2e7 !important;
+        .bi.bi-star {
+            color: #ffa300 !important;
+        }
+    }
+    &.favorite {
+        width: 92px;
+        border-color: #ffa300 !important;
+        .bi.bi-star-fill {
+            color: #ffa300 !important;
+        }
+    }
+}

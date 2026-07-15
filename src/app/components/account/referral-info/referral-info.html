@@ -1,0 +1,45 @@
+<div class="card-header">
+  <div class="card-title m-0">
+    <h3 class="fw-bolder m-0">Referral Program</h3>
+  </div>
+</div>
+<div class="card-body p-9">
+  @if (buttonPosition === 'top') {
+    <app-add-referee-button class="mb-9" />
+  }
+  <div class="row mb-7">
+    <div [innerHTML]="currentUser()?.portal?.referrals_page" class="col-lg-6"></div>
+    @if (referralsPageImg()) {
+      <div
+        class="referrals-page-img-container col-lg-5 ms-lg-4 ms-sm-0 px-0 d-flex flex-row align-items-center overflow-hidden"
+        style="max-height: 222px"
+      >
+        <img class="w-100" [src]="referralsPageImg()" alt="Referrals page image" />
+      </div>
+    }
+  </div>
+
+  <div class="row mb-7">
+    <label class="col-lg-4 fw-bold text-muted">Code</label>
+
+    <div class="col-lg-8 fv-row">
+      <span class="fw-bold fs-6">{{ currentUser().coupon?.code }}</span>
+    </div>
+  </div>
+
+  <div class="row mb-7">
+    <label class="col-lg-4 fw-bold text-muted">Code amount</label>
+
+    <div class="col-lg-8 d-flex align-items-center">
+      <span class="fw-bolder fs-6 me-2">{{ currentUser().coupon?.amount }}</span>
+    </div>
+  </div>
+
+  @if (buttonPosition === 'bottom') {
+    <app-add-referee-button class="mt-2" />
+  }
+</div>
+<app-add-referee-modal
+  [code]="currentUser()?.coupon?.code"
+  (updateReferrals)="updateReferrals.emit()"
+/>

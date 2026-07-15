@@ -1,0 +1,125 @@
+<div class="card mb-5 mb-xl-10">
+  <div class="card-body pt-9 pb-0">
+    <div class="d-flex flex-wrap mb-3">
+      <div class="mb-4 w-100 d-flex justify-content-center d-md-block w-md-auto">
+        <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative me-md-7">
+          <img [src]="currentUser()?.avatar_url?.medium" alt="avatar" />
+          <div
+            class="position-absolute translate-middle bottom-0 start-100 mb-6 rounded-circle border border-4 border-white h-20px w-20px"
+            [class]="avatarDotClassMap[currentUser().membership_status]"></div>
+        </div>
+      </div>
+      <div class="flex-grow-1">
+        <div class="d-none d-md-flex align-items-start flex-wrap mb-2">
+          <div class="d-flex flex-column">
+            <div class="d-flex align-items-center mb-2">
+                <span class="text-gray-900 text-hover-portal fs-2 fw-bolder me-1 cursor-pointer">
+                  {{ currentUser()?.full_name }}
+                </span>
+            </div>
+            <div class="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
+                <span class="d-flex align-items-center text-gray-400 text-hover-portal me-5 cursor-pointer">
+                  <span class="svg-icon svg-icon-4 me-1">
+                    <app-inline-svg src="/media/icons/duotune/communication/com006.svg" />
+                  </span>
+                  {{ currentUser()?.member_type?.toUpperCase() }}
+                </span>
+              <span class="d-flex align-items-center text-gray-400 text-hover-portal me-5 cursor-pointer">
+                  <span class="svg-icon svg-icon-4 me-1">
+                    <app-inline-svg src="/media/icons/duotune/communication/com011.svg" />
+                  </span>
+                {{ currentUser()?.email }}
+                </span>
+              @if (currentUser()?.portal?.passkit_button_on_top) {
+                <span
+                  class="d-none d-md-flex align-items-center text-gray-400 text-hover-portal me-5 text-uppercase cursor-pointer"
+                >
+                    <span class="svg-icon svg-icon-4 me-1">
+                      <app-inline-svg src="/media/icons/duotune/finance/fin008.svg" />
+                    </span>
+                    Digital membership card
+                </span>
+                <a [href]="currentUser()?.pass_url" class="d-none d-md-inline-block" target="_blank">
+                  <button class="btn btn-sm btn-portal h-30px px-3 py-2">Save to phone</button>
+                </a>
+              }
+            </div>
+          </div>
+        </div>
+
+        @if (currentUser()?.portal?.passkit_button_on_top) {
+          <div class="d-flex flex-center flex-column d-md-none mb-5">
+            <h5 class="text-gray-800 fw-bolder">Digital membership card</h5>
+            <a [href]="currentUser()?.pass_url" target="_blank" class="fw-bolder mx-auto">
+              <button class="btn btn-portal">Save to phone</button>
+            </a>
+          </div>
+        }
+        <div class="d-flex flex-wrap flex-stack">
+          <div class="d-flex flex-column flex-grow-1 pe-lg-8">
+            <div class="d-flex flex-wrap justify-content-center justify-content-md-start">
+              <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                <div class="d-flex align-items-center">
+                  <div class="fs-2 fw-bolder">
+                    {{ currentUser()?.member_id }}
+                  </div>
+                </div>
+                <div class="fw-bold fs-6 text-gray-400">Membership number</div>
+              </div>
+              <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                <div class="d-flex align-items-center">
+                  <div class="fs-2 fw-bolder">
+                    {{ currentUser()?.membership_type }}
+                  </div>
+                </div>
+                <div class="fw-bold fs-6 text-gray-400">Membership type</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    @if (hasAccess(`referrals`) || currentUser().subscription_detail) {
+      <ul
+        class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder justify-content-center justify-content-md-start"
+      >
+        <li class="nav-item mt-2">
+          <a
+            routerLink="personal/account-profile"
+            [class]="{
+              active: router.url === 'personal/account-profile',
+            }"
+            class="nav-link text-active-portal ms-0 me-7 me-md-10 py-5"
+          >Profile</a>
+        </li>
+        @if (hasAccess(`referrals`)) {
+          <li class="nav-item mt-2">
+            <a
+              routerLink="personal/account-referrals"
+              [class]="{
+                active: router.url.includes('account-referral'),
+              }"
+              class="nav-link text-active-portal ms-0 me-7 me-md-10 py-5"
+            >Referrals</a>
+          </li>
+        }
+        @if (currentUser().subscription_detail) {
+          <li class="nav-item mt-2">
+            <a
+              routerLink="personal/account-payment-details"
+              [class]="{
+                active: router.url === 'personal/account-payment-details',
+              }"
+              class="nav-link text-active-portal ms-0 me-7 me-md-10 py-5"
+            >
+              Payment Details
+              @if (!currentUser().subscription_detail?.status) {
+                <span class="badge badge-danger badge-circle fw-bold fs-7 ms-2">!</span>
+              }
+            </a>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</div>

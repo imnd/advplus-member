@@ -1,0 +1,179 @@
+<div class="card mb-5 mb-xl-10">
+  <div class="card-header cursor-pointer">
+    <div class="card-title m-0">
+      <h3 class="fw-bolder m-0">Personal Details</h3>
+    </div>
+  </div>
+  <div class="card-body p-9">
+    <div class="row mb-7">
+      <label class="col-lg-4 fw-bold text-muted">Full Name</label>
+      <div class="col-lg-8">
+        <span class="fw-bolder fs-6 text-dark">{{ currentUser().full_name }}</span>
+      </div>
+    </div>
+    @if (currentUser().corporate_name) {
+      <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">Company</label>
+        <div class="col-lg-8 fv-row">
+          <span class="fw-bold fs-6">{{ currentUser().corporate_name }}</span>
+        </div>
+      </div>
+    }
+    @if (currentUser().phone) {
+      <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">
+          Phone
+          <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Phone number"></i>
+        </label>
+        <div class="col-lg-8 d-flex align-items-center">
+          <span class="fw-bolder fs-6">{{ currentUser().phone }}</span>
+        </div>
+      </div>
+    }
+    <div class="row mb-7">
+      <label class="col-lg-4 fw-bold text-muted">Join date</label>
+      <div class="col-lg-8 fv-row">
+        <span class="fw-bold fs-6">{{ currentUser().start_date }}</span>
+      </div>
+    </div>
+    <div class="row mb-7">
+      <label class="col-lg-4 fw-bold text-muted">Expiry</label>
+      <div class="col-lg-8 fv-row">
+        <span class="fw-bold fs-6" [class]="{ 'text-danger': isMembershipExpired() }">{{ currentUser().end_date }}</span>
+      </div>
+    </div>
+    <div class="row mb-7">
+      <label class="col-lg-4 fw-bold text-muted">Member Type</label>
+      <div class="col-lg-8 fv-row">
+        <span class="fw-bold fs-6 text-capitalize">{{ currentUser().member_type }}</span>
+      </div>
+    </div>
+    <div class="row mb-7">
+      <label class="col-lg-4 fw-bold text-muted">Personal Email</label>
+      <div class="col-lg-8 fv-row">
+        <span class="fw-bold fs-6">{{ currentUser().email }}</span>
+      </div>
+    </div>
+    @if (currentUser().recovery_email) {
+      <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">Recovery Email</label>
+        <div class="col-lg-8 fv-row">
+          <span class="fw-bold fs-6">{{ currentUser().recovery_email }}</span>
+        </div>
+      </div>
+    }
+    @if (currentUser().location) {
+      <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">Area of residence</label>
+        <div class="col-lg-8 fv-row">
+          <span class="fw-bold fs-6">{{ currentUser().location }}</span>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+<div class="card mb-5 mb-xl-10">
+  @if (hasAccess(`referrals`) && currentUser().coupon && currentUserCouponLength()) {
+    <app-referral-info [buttonPosition]="'bottom'" />
+  }
+</div>
+@if (currentUser().pass_url) {
+  <div class="card mb-5 mb-xl-10">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-4">
+          <img class="img-fluid" alt="PassKit" src="/media/images/adv-membership-for-site.jpg" />
+        </div>
+        <div class="col-sm-7">
+          <div class="mt-5 fw-bold text-gray-600">
+            <h4 class="text-gray-800 fw-bolder">Digital membership card</h4>
+            <p class="mb-5">
+              Tap the 'Save to phone' button and save your digital membership card to your mobile wallet. (you can also toggle between Apple and Andriod in the top-right corner).
+            </p>
+            <a [href]="currentUser().pass_url" target="_blank" class="fw-bolder">
+              <button class="btn btn-portal">Save to phone</button>
+            </a>
+            <p class="sm-text mb-0 mt-5">
+              In case you need it, here is a download guide for
+              <a [href]="portal()?.passkit_faq_url_ios" target="_blank">iOS</a>
+              and
+              <a [href]="portal()?.passkit_faq_url_android" target="_blank">Android</a>
+              <br />
+              If your profile picture doesn't display on your digital card, please send us an updated headshot via
+              <a [href]="portal()?.whatsapp_url" target="_blank">WhatsApp</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+@if (kids()?.length) {
+  <div class="card mb-5">
+    <div class="card-header border-0 py-5">
+      <h3 class="card-title align-items-start flex-column">
+        <span class="card-label fw-bolder fs-3 mb-1">Kids</span>
+      </h3>
+    </div>
+    <div class="card-body py-3">
+      <div class="tab-content">
+        <div class="tab-pane fade active show" id="kt_table_widget_5_tab_1">
+          <div class="table-responsive">
+            <table class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4">
+              <thead>
+              <tr class="border-0">
+                <th class="p-0 min-w-150px"></th>
+                <th class="p-0 min-w-140px"></th>
+                <th class="p-0 min-w-50px"></th>
+              </tr>
+              </thead>
+              <tbody>
+                @for (child of kids(); track child.member_id) {
+                  <tr>
+                    <td>
+                      <a @click.prevent href="#" class="text-dark fw-bold text-hover-portal mb-1 fs-6">
+                        {{ child.full_name }}
+                      </a>
+                    </td>
+                    <td class="text-sm-center text-muted fw-bold">
+                      {{ child.dob }}
+                    </td>
+                    <td class="text-sm-center">
+                      <span class="badge badge-light-success">{{ child.member_id }}</span>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+@if (hasAccess('visiting_family_membership') && visitingFamilyMembership()) {
+  <div class="card mb-5">
+    <div class="card-header border-0 pt-5">
+      <h3 class="card-title align-items-start flex-column">
+        <span class="card-label fw-bolder fs-3 mb-1">
+          {{ visitingFamilyMembership()?.title }}
+        </span>
+      </h3>
+    </div>
+    <div class="card-body pt-0">
+      <div class="row">
+        <div class="col-lg-8">
+          <p class="fw-bold text-muted" [innerHTML]="visitingFamilyMembership()?.text"></p>
+          <span class="fs-6 mt-5">
+            <a
+              [href]="visitingFamilyMembership()?.link"
+              target="_blank" class="btn btn-portal"
+            >
+              Purchase now
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+}

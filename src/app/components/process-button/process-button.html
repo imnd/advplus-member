@@ -1,0 +1,17 @@
+<button
+  [disabled]="loading"
+  [attr.data-kt-indicator]="loading ? 'on' : null"
+  [class]="`btn btn-lg ${buttonClass}`"
+  type="submit"
+>
+  @if (!loading) {
+    <span class="indicator-label">
+      <slot>Submit</slot>
+    </span>
+  } @else {
+    <span class="indicator-progress">
+      {{ loadingText }}
+      <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+    </span>
+  }
+</button>

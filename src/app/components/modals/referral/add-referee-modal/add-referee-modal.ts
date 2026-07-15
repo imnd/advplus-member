@@ -1,0 +1,86 @@
+import { Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
+import { hideModal } from "@/core/helpers/dom";
+import * as Yup from "yup";
+import { ReferralStore } from '@/store/referral-store';
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { InlineSvgComponent } from '@/components/UI/inline-svg/inline-svg';
+import { ProcessButton } from '@/components/process-button/process-button';
+
+@Component({
+  selector: 'app-add-referee-modal',
+  imports: [
+    InlineSvgComponent,
+    ReactiveFormsModule,
+    ProcessButton
+  ],
+  templateUrl: './add-referee-modal.html',
+  styleUrl: './add-referee-modal.scss',
+})
+export class AddRefereeModal {
+  @Input() type: string = "";
+  @Input() code?: string = "";
+
+  @ViewChild('addRefereeModalRef') addRefereeModalRef!: ElementRef<HTMLElement>;
+  cancel = () => hideModal(this.addRefereeModalRef.nativeElement);
+
+  addReferee = Yup.object().shape({
+    name: Yup.string().min(2).required().label("Referee name"),
+    email: Yup.string().email().required().label("Email"),
+    mobile: Yup.string().required().label("Mobile number"),
+  });
+
+  // Form
+  form: FormGroup;
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      mobile: ['', Validators.required],
+    });
+  }
+  resetForm(): void {
+    this.form.reset();
+  }
+
+  // Form submit function
+  loading = false;
+  referralStore = inject(ReferralStore);
+
+  async onSubmitAddReferee () {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const values = this.form.value;
+    this.loading = true;
+    this.referralStore
+      .addReferee(values)
+      .subscribe({
+        next: () => Swal.fire({
+          text: "Referee successfully added!",
+          icon: "success",
+          buttonsStyling: false,
+          confirmButtonText: "Ok, got it!",
+          customClass: { confirmButton: "btn fw-bold btn-light" },
+        }).then(() => this.updateReferrals.emit()),
+        error: (error) => {
+          Swal.fire({
+            text: error.error.message,
+            icon: "error",
+            buttonsStyling: false,
+            confirmButtonText: "Try again!",
+            customClass: { confirmButton: "btn btn-portal" },
+          });
+        },
+        complete: () => {
+          this.loading = false;
+          this.cancel();
+          this.form.reset();
+        }
+      });
+  };
+
+  @Output() updateReferrals = new EventEmitter<void>();
+}

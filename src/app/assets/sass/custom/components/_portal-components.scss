@@ -1,0 +1,154 @@
+/*
+  These variables will be override by JS
+ */
+
+:root {
+  --portal-main-color: #E0B050;
+  --portal-main-color-dark: #CF9625;
+  --portal-main-color-active: #E9C784;
+  --portal-main-color-light: #FFFFFF;
+}
+
+
+.text-active-portal {
+  &.active {
+    color: var(--portal-main-color) !important;
+  }
+}
+
+.text-portal {
+  color: var(--portal-main-color) !important;
+}
+
+.text-hover-portal {
+  &:hover {
+    transition: $transition-link;
+    color: var(--portal-main-color-dark) !important;
+  }
+}
+
+.menu-title {
+  color: var(--portal-main-color) !important;
+}
+
+a {
+  color: var(--portal-main-color);
+
+  &:hover {
+    color: var(--portal-main-color-dark) !important;
+    text-decoration: $link-hover-decoration;
+  }
+}
+
+.btn {
+  &.btn-portal {
+    background-color: var(--portal-main-color);
+    color: $white;
+
+    &:hover, &.active {
+      background-color: var(--portal-main-color-active) !important;
+      color: $white !important;
+    }
+
+    &.small {
+      font-size: 0.85rem;
+      padding: .2em .5em !important;
+    }
+  }
+
+  &.btn-outline-portal {
+    border-color: var(--portal-main-color);
+    color: var(--portal-main-color);
+
+    &:hover, &.active {
+      background-color: var(--portal-main-color);
+      color: $white;
+    }
+  }
+
+  &.btn-active-portal {
+    &.active {
+      background-color: var(--portal-main-color) !important;
+      color: $white !important;
+    }
+  }
+  &.btn-light-portal {
+      background-color: var(--portal-main-color-light) !important;
+      color: var(--portal-main-color-dark) !important;
+  }
+}
+
+.nav-line-tabs {
+  // Active & Hover States
+  .nav-item .nav-link.active,
+  .nav-item.show .nav-link,
+  .nav-item .nav-link:hover:not(.disabled) {
+    border-bottom: 1px solid var(--portal-main-color);
+  }
+}
+
+.menu-link {
+  &:hover {
+    background-color: $gray-200 !important;
+    color: var(--portal-main-color-dark) !important;
+  }
+}
+
+.btn-active-color-portal {
+  &:hover {
+    color: 1px solid var(--portal-main-color) !important;
+  }
+}
+
+
+.el-pagination {
+  &.is-background {
+    .el-pager {
+      li {
+        &:not(.disabled).active {
+          background-color: var(--portal-main-color);
+        }
+
+        &:hover {
+          color: var(--portal-main-color);
+        }
+      }
+    }
+  }
+}
+
+.border-portal {
+  border-color: var(--portal-main-color) !important;
+}
+
+.link-portal {
+  color: var(--portal-main-color);
+}
+
+.el-pagination.is-background .el-pager li:not(.disabled):not(.active):hover {
+  color: var(--portal-main-color);
+}
+
+.frame-input {
+  @extend .form-control-solid;
+  @extend .form-control;
+  height: $input-height;
+}
+
+.checkout-payment-card {
+  & input {
+    font-family: monospace;
+    letter-spacing: 0.005em;
+    color: var(--bs-gray-700);
+
+    &::placeholder {
+      color: #ddd !important;
+    }
+  }
+}
+
+.el-loading-spinner {
+  .path {
+    stroke: var(--portal-main-color);
+  }
+}

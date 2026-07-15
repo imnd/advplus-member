@@ -1,0 +1,16 @@
+@if (displayForm) {
+  <ng-container>
+    <div class="checkout-payment-card">
+      <!-- Skeleton на время создания PaymentSession и инициализации Flow -->
+      @if (isLoading()) {
+        <div class="skeleton-block">
+          <div class="skeleton-line skeleton-line--short"></div>
+          <div class="skeleton-line skeleton-line--full"></div>
+        </div>
+      }
+      <!-- Flow сам рендерит сюда способы оплаты, поля карты, кнопку Pay -->
+      <div #flowContainer [class.hidden]="isLoading()"></div>
+    </div>
+  </ng-container>
+}
+

@@ -1,0 +1,23 @@
+@if (visible()) {
+  <div class="vel-modal" (click)="close()">
+    <img
+      [src]="currentImage()"
+      class="vel-img"
+      [style.transform]="'scale(' + zoom() + ')'"
+      (click)="$event.stopPropagation()"
+    />
+
+    <div class="vel-toolbar" (click)="$event.stopPropagation()">
+      <div class="toolbar-btn toolbar-btn__zoomin" (click)="zoomIn()">
+        <i class="bi bi-zoom-in fs-2x text-white"></i>
+      </div>
+      <div class="toolbar-btn toolbar-btn__zoomout" (click)="zoomOut()">
+        <i class="bi bi-zoom-out fs-2x text-white"></i>
+      </div>
+    </div>
+
+    <div class="vel-close" (click)="close()">
+      <i class="bi bi-x-lg fs-2 text-white"></i>
+    </div>
+  </div>
+}

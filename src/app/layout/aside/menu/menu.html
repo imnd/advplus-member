@@ -1,0 +1,140 @@
+<div
+  id="kt_aside_menu_wrapper"
+  #scrollEl
+  class="hover-scroll-overlay-y my-5 my-lg-5"
+  data-kt-scroll="true"
+  data-kt-scroll-activate="{default: false, lg: true}"
+  data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer"
+  data-kt-scroll-height="auto"
+  data-kt-scroll-offset="0"
+  data-kt-scroll-wrappers="#kt_aside_menu"
+>
+  <div
+    id="#kt_header_menu"
+    class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
+    data-kt-menu="true"
+  >
+    @for (item of mainMenuConfig; track item) {
+      @if (item.heading) {
+        <div class="menu-item">
+          <div class="menu-content pt-8 pb-2">
+            <span class="menu-section text-muted text-uppercase fs-8 ls-1">
+              {{ translate(item.heading) }}
+            </span>
+          </div>
+        </div>
+      }
+      @for (menuItem of item.pages; track menuItem.route) {
+        <ng-template>
+          @if (menuItem.heading) {
+            <div class="menu-item">
+              <a class="menu-link" routerLinkActive="active" [routerLink]="menuItem.route">
+                @if (menuItem.svgIcon || menuItem.fontIcon) {
+                  <span class="menu-icon">
+                  @if (asideMenuIcons() === 'font') {
+                    <i [class]="menuItem.fontIcon" class="bi fs-3"></i>
+                  } @else if (asideMenuIcons() === 'svg') {
+                    <span class="svg-icon svg-icon-2">
+                      <app-inline-svg [src]="menuItem.svgIcon ?? ''" />
+                    </span>
+                  }
+                </span>
+                }
+                <span class="menu-title">{{ translate(menuItem.heading) }}</span>
+              </a>
+            </div>
+          }
+          @if (menuItem.sectionTitle) {
+            <div
+              [class]="{ show: hasActiveChildren(menuItem.route) }"
+              class="menu-item menu-accordion"
+              data-kt-menu-sub="accordion"
+              data-kt-menu-trigger="click"
+            >
+            <span class="menu-link">
+              @if (menuItem.svgIcon || menuItem.fontIcon) {
+                <span class="menu-icon">
+                @if (asideMenuIcons() === 'font') {
+                  <i [class]="menuItem.fontIcon" class="bi fs-3"></i>
+                } @else if (asideMenuIcons() === 'svg') {
+                  <span class="svg-icon svg-icon-2">
+                    <app-inline-svg [src]="menuItem.svgIcon ?? ''" />
+                  </span>
+                }
+              </span>
+              }
+              <span class="menu-title">{{ translate(menuItem.sectionTitle) }}</span>
+              <span class="menu-arrow"></span>
+            </span>
+              <div [class]="{ show: hasActiveChildren(menuItem.route) }" class="menu-sub menu-sub-accordion">
+                @for (subItem of menuItem.sub; track subItem) {
+                  <ng-template>
+                    @if (subItem.heading) {
+                      <div class="menu-item">
+                        <a class="menu-link" routerLinkActive="active" [routerLink]="subItem.route">
+                        <span class="menu-bullet">
+                          <span class="bullet bullet-dot"></span>
+                        </span>
+                          <span class="menu-title">{{ translate(subItem.heading) }}</span>
+                        </a>
+                      </div>
+                    }
+                    @if (subItem.sectionTitle) {
+                      <div
+                        [class]="{ show: hasActiveChildren(subItem.route) }"
+                        class="menu-item menu-accordion"
+                        data-kt-menu-sub="accordion"
+                        data-kt-menu-trigger="click"
+                      >
+                  <span class="menu-link">
+                    <span class="menu-bullet">
+                      <span class="bullet bullet-dot"></span>
+                    </span>
+                    <span class="menu-title">{{ translate(subItem.sectionTitle) }}</span>
+                    <span class="menu-arrow"></span>
+                  </span>
+                        <div [class]="{ show: hasActiveChildren(subItem.route) }" class="menu-sub menu-sub-accordion">
+                          @for (subSubItem of subItem.sub; track subSubItem) {
+                            @if (subSubItem.heading) {
+                              <div class="menu-item">
+                                <a class="menu-link" routerLinkActive="active" [routerLink]="subSubItem.route">
+                                <span class="menu-bullet">
+                                  <span class="bullet bullet-dot"></span>
+                                </span>
+                                  <span class="menu-title">{{ translate(subSubItem.heading) }}</span>
+                                </a>
+                              </div>
+                            }
+                          }
+                        </div>
+                      </div>
+                    }
+                  </ng-template>
+                }
+              </div>
+            </div>
+          }
+        </ng-template>
+      }
+    }
+    <div class="menu-item">
+      <div class="menu-content">
+        <div class="separator mx-1 my-4"></div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <a class="menu-link" href="https://preview.keenthemes.com/metronic8/vue/docs/#/changelog">
+        <span class="menu-icon">
+          @if (asideMenuIcons() === 'font') {
+            <i class="bi bi-card-text fs-3"></i>
+          } @else if (asideMenuIcons() === 'svg') {
+            <span class="svg-icon svg-icon-2">
+              <app-inline-svg src="/media/icons/duotune/general/gen005.svg" />
+            </span>
+          }
+        </span>
+        <span class="menu-title">{{ translate("changelog") }}</span>
+      </a>
+    </div>
+  </div>
+</div>

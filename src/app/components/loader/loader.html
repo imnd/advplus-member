@@ -1,0 +1,16 @@
+@if (loaderType === 'spinner-message') {
+  <div class="page-loader flex-column">
+    <span class="spinner-border text-muted" role="status"></span>
+  </div>
+} @else if (loaderType === 'spinner-logo') {
+  <div class="page-loader flex-column">
+    <img alt="Logo" class="max-h-75px" [src]="logo" />
+    <div class="d-flex align-items-center mt-5">
+      <span class="spinner-border text-muted" role="status"></span>
+    </div>
+  </div>
+} @else {
+  <div class="page-loader">
+    <span class="spinner-border text-muted" role="status"></span>
+  </div>
+}

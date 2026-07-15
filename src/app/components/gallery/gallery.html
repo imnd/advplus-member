@@ -1,0 +1,26 @@
+<swiper-container #swiperRef init="false">
+  @for (item of items(); track $index; let i = $index) {
+    <swiper-slide>
+      <a
+        class="d-block card-rounded overlay"
+        [href]="item.name_url['large']"
+        (click)="$event.preventDefault(); showImg(i)"
+      >
+        <div
+          class="w-100 h-200px h-lg-150px card-rounded bgi-no-repeat bgi-position-center bgi-size-cover overlay-wrapper"
+          [style.background-image]="'url(' + item.name_url[thumbnailSize()] + ')'"
+        ></div>
+        <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+          <i class="bi bi-eye-fill fs-2x text-white"></i>
+        </div>
+      </a>
+    </swiper-slide>
+  }
+</swiper-container>
+
+<app-lightbox
+  [images]="images()"
+  [visible]="visible()"
+  [index]="index()"
+  (hide)="hide()"
+/>

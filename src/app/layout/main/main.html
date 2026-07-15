@@ -1,0 +1,31 @@
+<div class="page d-flex flex-row flex-column-fluid">
+  <div id="kt_wrapper" class="wrapper d-flex flex-column flex-row-fluid">
+    <app-header [title]="pageTitle()" />
+
+    @if (subheaderDisplay() && !isMembershipExpired()) {
+      <app-toolbar [breadcrumbs]="breadcrumbs()" [title]="pageTitle()" />
+    }
+    <div
+      id="kt_content"
+      class="d-flex flex-column-fluid align-items-start"
+      [class]="{
+        'container-fluid': contentWidthFluid(),
+        'container-xxl': !contentWidthFluid(),
+        'mt-5': !(subheaderDisplay() && !isMembershipExpired()),
+      }"
+    >
+      @if (asideEnabled()) {
+        <app-aside [lightLogo]="themeLightLogo()" [darkLogo]="themeDarkLogo()" />
+      }
+      <div class="content flex-row-fluid">
+        <router-outlet />
+      </div>
+    </div>
+    <app-footer />
+  </div>
+</div>
+<app-change-password-modal />
+@if (currentUser().renewal_url) {
+  <app-renewal-reminder-modal />
+}
+

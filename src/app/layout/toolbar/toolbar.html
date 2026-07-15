@@ -1,0 +1,84 @@
+<div class="toolbar pt-5 py-lg-7" id="kt_toolbar">
+  <div
+    id="kt_toolbar_container"
+    [class]="{
+      'container-fluid': toolbarWidthFluid,
+      'container-xxl': !toolbarWidthFluid,
+    }"
+    class="d-flex flex-stack flex-wrap"
+  >
+    <app-skeleton [animated]="true" [loading]="isToolbarLoading">
+      <ng-template #skeletonTemplate>
+        <app-skeleton-item variant="h1" class="w-50 w-lg-25" />
+        <br />
+        <app-skeleton-item variant="text" class="w-100 w-lg-50" />
+      </ng-template>
+      <ng-template #content>
+        <div class="page-title d-flex flex-column me-3">
+          <h1 class="d-none d-lg-flex fw-bolder my-1 fs-3">
+            {{ title }}
+          </h1>
+          @if (breadcrumbs) {
+            <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+              <li class="breadcrumb-item opacity-75">
+                <a routerLink="/">Home</a>
+              </li>
+              <li class="breadcrumb-item text-dark opacity-75">
+                <span class="bullet bg-dark w-5px h-2px"></span>
+              </li>
+              @for (item of breadcrumbs; track item) {
+                <template>
+                  <li class="breadcrumb-item opacity-75">
+                    {{ item }}
+                  </li>
+                  <li class="breadcrumb-item text-dark opacity-75">
+                    <span class="bullet bg-dark w-5px h-2px"></span>
+                  </li>
+                </template>
+              }
+              <li class="breadcrumb-item opacity-75">
+                {{ title }}
+              </li>
+            </ul>
+          }
+        </div>
+
+        <ul class="nav nav-pills">
+          @if (toolbarButtonLinks) {
+            <li class="nav-item m-0">
+              <a [routerLink]="toolbarButtonLinks[0]?.route" class="active btn btn-sm btn-light btn-color-muted me-3">
+                <span>{{ toolbarButtonLinks[0]?.title }}</span>
+              </a>
+            </li>
+          }
+          @if (showListFormatButtons) {
+            <li class="nav-item m-0">
+              <a
+                [class]="{ active: !listTableFormat }"
+                class="btn btn-sm btn-icon btn-light btn-color-muted me-3"
+                (click)="setListTableFormat(0, $event)"
+              >
+                <span class="svg-icon svg-icon-1">
+                  <app-inline-svg src="/media/icons/duotune/general/gen024.svg" />
+                </span>
+              </a>
+            </li>
+          }
+          @if (showListFormatButtons) {
+            <li class="nav-item m-0">
+              <a
+                [class]="{ active: listTableFormat }"
+                class="btn btn-sm btn-icon btn-light btn-color-muted"
+                (click)="setListTableFormat(1, $event)"
+              >
+                <span class="svg-icon svg-icon-2">
+                  <app-inline-svg src="/media/icons/duotune/abstract/abs015.svg" />
+                </span>
+              </a>
+            </li>
+          }
+        </ul>
+      </ng-template>
+    </app-skeleton>
+  </div>
+</div>
