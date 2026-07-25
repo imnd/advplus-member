@@ -3,9 +3,9 @@
     <div class="modal-content rounded">
       <div class="modal-header pb-0 border-0 justify-content-end">
         <div class="btn btn-sm btn-icon btn-btn-active-color-portal" data-bs-dismiss="modal">
-            <span class="svg-icon svg-icon-1">
-              <app-inline-svg src="/media/icons/duotune/arrows/arr061.svg" />
-            </span>
+          <span class="svg-icon svg-icon-1">
+            <app-inline-svg src="/media/icons/duotune/arrows/arr061.svg" />
+          </span>
         </div>
       </div>
 
@@ -28,13 +28,7 @@
               type="text"
               autocomplete="off"
             />
-            <div class="fv-plugins-message-container">
-              <div class="fv-help-block">
-                @if (form.get('name')?.invalid && form.get('name')?.touched) {
-                  {{ form.get('name')?.errors?.['required'] ? 'Name is required' : '' }}
-                }
-              </div>
-            </div>
+            <app-error-message name="email" [form]="form" />
           </div>
 
           <div class="fv-row mb-10">
@@ -45,13 +39,7 @@
               type="email"
               autocomplete="off"
             />
-            <div class="fv-plugins-message-container">
-              <div class="fv-help-block">
-                @if (form.get('email')?.invalid && form.get('email')?.touched) {
-                  {{ form.get('email')?.errors?.['required'] ? 'Email is required' : form.get('email')?.errors?.['email'] ? 'Invalid email' : '' }}
-                }
-              </div>
-            </div>
+            <app-error-message name="email" [form]="form" />
           </div>
           <div class="fv-row mb-10">
             <label class="form-label fw-bolder text-gray-900 fs-6 required">Mobile number</label>
@@ -61,13 +49,7 @@
               type="tel"
               autocomplete="off"
             />
-            <div class="fv-plugins-message-container">
-              <div class="fv-help-block">
-                @if (form.get('mobile')?.invalid && form.get('mobile')?.touched) {
-                  {{ form.get('mobile')?.errors?.['required'] ? 'Mobile is required' : '' }}
-                }
-              </div>
-            </div>
+            <app-error-message name="mobile" [form]="form" />
           </div>
           <div class="text-center">
             <button type="button" class="btn btn-white me-3" (click)="cancel()">Cancel</button>

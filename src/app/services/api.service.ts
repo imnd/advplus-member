@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
  */
 @Injectable({ providedIn: 'root' })
 export default class ApiService {
-  private apiUrl = environment.apiUrl;
-  private http = inject(HttpClient);
+  private apiUrl: string = environment.apiUrl;
+  private http: HttpClient = inject(HttpClient);
 
   /**
    * @description get the default HTTP request headers

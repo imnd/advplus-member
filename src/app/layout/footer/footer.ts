@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import ConfigService from "@/services/config/config.service";
+import { getFullYear } from "@/utils/date.util"
 
 @Component({
   selector: 'app-footer',
-  imports: [],
   templateUrl: './footer.html',
-  styleUrl: './footer.scss',
 })
-export class Footer {}
+export class Footer {
+  private configService = inject(ConfigService);
+  footerWidthFluid = this.configService.footerWidthFluid;
+  getFullYear = getFullYear;
+}

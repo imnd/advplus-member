@@ -29,7 +29,7 @@ import { filter } from 'rxjs/operators';
   ],
   templateUrl: './main.html'
 })
-export class MainLayoutComponent implements OnInit {
+export class MainLayout implements OnInit {
   private configService = inject(ConfigService);
   protected readonly contentWidthFluid = this.configService.contentWidthFluid;
   protected readonly asideEnabled = this.configService.asideEnabled;
@@ -58,9 +58,7 @@ export class MainLayoutComponent implements OnInit {
   constructor(private router: Router) {
     this.router
       .events
-      .pipe(
-        filter(event => event instanceof NavigationEnd)
-      )
+      .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
         MenuComponent.hideDropdowns(undefined);
         removeModalBackdrop();

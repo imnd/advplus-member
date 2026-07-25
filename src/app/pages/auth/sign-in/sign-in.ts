@@ -4,12 +4,14 @@ import AuthService from "@/services/auth.service";
 import { BodyStore } from '@/store/body';
 import { ProcessButton } from "@/components/process-button/process-button";
 import { AuthStore, Credentials } from '@/store/auth';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { ErrorMessage } from '@/components/UI/error-message/error-message';
+import { Field } from '@/components/UI/field/field';
 
 @Component({
   selector: 'app-sign-in',
-  imports: [ ProcessButton, ReactiveFormsModule, RouterLink ],
+  imports: [ProcessButton, ReactiveFormsModule, RouterLink, ErrorMessage, Field],
   templateUrl: './sign-in.html',
 })
 export class SignInPageComponent implements OnInit {
@@ -20,9 +22,13 @@ export class SignInPageComponent implements OnInit {
   form: FormGroup;
   // Create form validation object
   constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+    // this.form = this.fb.group({
+    //   email: ['', [Validators.required, Validators.email]],
+    //   password: ['', Validators.required],
+    // });
+    this.form = new FormGroup({
+      email: new FormControl(),
+      password: new FormControl(),
     });
   }
 

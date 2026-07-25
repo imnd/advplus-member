@@ -14,4 +14,4 @@ import { RouterOutlet } from '@angular/router';
   ],
   templateUrl: './account.html',
 })
-export class AccountPageComponent {}
+export class AccountPage {}

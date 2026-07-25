@@ -1,18 +1,19 @@
 import { Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
 import { hideModal } from "@/core/helpers/dom";
-import * as Yup from "yup";
 import { ReferralStore } from '@/store/referral-store';
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InlineSvgComponent } from '@/components/UI/inline-svg/inline-svg';
 import { ProcessButton } from '@/components/process-button/process-button';
+import { ErrorMessage } from '@/components/UI/error-message/error-message';
 
 @Component({
   selector: 'app-add-referee-modal',
   imports: [
     InlineSvgComponent,
     ReactiveFormsModule,
-    ProcessButton
+    ProcessButton,
+    ErrorMessage
   ],
   templateUrl: './add-referee-modal.html',
   styleUrl: './add-referee-modal.scss',
@@ -24,12 +25,6 @@ export class AddRefereeModal {
   @ViewChild('addRefereeModalRef') addRefereeModalRef!: ElementRef<HTMLElement>;
   cancel = () => hideModal(this.addRefereeModalRef.nativeElement);
 
-  addReferee = Yup.object().shape({
-    name: Yup.string().min(2).required().label("Referee name"),
-    email: Yup.string().email().required().label("Email"),
-    mobile: Yup.string().required().label("Mobile number"),
-  });
-
   // Form
   form: FormGroup;
   constructor(private fb: FormBuilder) {
@@ -38,9 +33,6 @@ export class AddRefereeModal {
       email: ['', [Validators.required, Validators.email]],
       mobile: ['', Validators.required],
     });
-  }
-  resetForm(): void {
-    this.form.reset();
   }
 
   // Form submit function

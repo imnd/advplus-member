@@ -1,0 +1,7 @@
+<div class="fv-plugins-message-container">
+  <div class="fv-help-block">
+    @if (form.get(name)?.invalid && form.get(name)?.touched) {
+      {{ form.get(name)?.errors?.['required'] ? ucFirst(name) + ` is required` : form.get(name)?.errors?.[name] ? `Invalid ${name}` : '' }}
+    }
+  </div>
+</div>

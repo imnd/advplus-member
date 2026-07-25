@@ -1,6 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
 import { ToolbarComponents } from '@/store/toolbar-components';
-import { SkeletonComponent } from '@/components/UI/skeleton/skeleton';
+import { SkeletonComponent } from '@/components/UI/skeleton/skeleton-item';
 import ConfigService from "@/services/config/config.service";
 import { SkeletonWrapperComponent } from '@/components/UI/skeleton/skeleton-wrapper';
 import { RouterLink } from '@angular/router';

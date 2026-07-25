@@ -1,9 +1,9 @@
-import {OffsetModel} from './models/OffsetModel'
-import {ViewPortModel} from './models/ViewPortModel'
-import {ElementStyleUtil} from './element-style.util'
-import {DataUtil} from './data.util'
-import {ElementAnimateUtil} from './element-animate.util'
-import {getObjectPropertyValueByKey, toJSON} from './types.helpers.util'
+import {OffsetModel} from '@/utils/models/OffsetModel'
+import {ViewPortModel} from '@/utils/models/ViewPortModel'
+import {ElementStyleUtil} from '@/utils/element-style.util'
+import {DataUtil} from '@/utils/data.util'
+import {ElementAnimateUtil} from '@/utils/element-animate.util'
+import {getObjectPropertyValueByKey, toJSON} from '@/utils/types.helpers.util'
 import { isBrowser } from '@/utils/browser.util';
 
 function getCSS(el: HTMLElement, styleProp: string) {

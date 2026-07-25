@@ -1,7 +1,7 @@
 import { Modal } from "bootstrap";
 import { isBrowser } from '@/utils/browser.util';
 
-const hideModal = (modalEl: HTMLElement | null): void => {
+const hideModal = (modalEl: HTMLInputElement | HTMLElement | null): void => {
   if (!modalEl) {
     return;
   }
@@ -9,7 +9,7 @@ const hideModal = (modalEl: HTMLElement | null): void => {
   const myModal = Modal.getInstance(modalEl);
   myModal?.hide();
 };
-const showModal = (modalEl: HTMLElement | null): void => {
+const showModal = (modalEl: HTMLInputElement | HTMLElement | null): void => {
   if (!modalEl) {
     return;
   }

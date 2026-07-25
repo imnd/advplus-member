@@ -8,7 +8,7 @@ import AuthService from '@/services/auth.service';
   imports: [ ReferralInfo ],
   templateUrl: './profile.html',
 })
-export class ProfilePageComponent {
+export class ProfilePage {
   private authService = inject(AuthService);
   protected hasAccess = this.authService.hasAccess;
 

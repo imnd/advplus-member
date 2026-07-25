@@ -1,6 +1,6 @@
 import {DOMEventHandlerUtil} from './dom-event-handler.util'
 import {ElementStyleUtil} from './element-style.util'
-import {getElementOffset} from './dom-helpers.util'
+import {getElementOffset} from '@/core/helpers/dom-helpers'
 import { isBrowser } from '@/utils/browser.util';
 
 export class ElementAnimateUtil {

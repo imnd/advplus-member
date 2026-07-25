@@ -1,11 +1,11 @@
 import { inject, Injectable } from "@angular/core";
-import { Router, NavigationEnd, ActivatedRouteSnapshot, NavigationError, Scroll } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRouteSnapshot, NavigationError, Scroll } from "@angular/router";
 import { filter } from "rxjs";
-import { ConfigStore } from '@/store/config';
-import { AuthStore } from '@/store/auth';
+import { ConfigStore } from "@/store/config";
+import { AuthStore } from "@/store/auth";
 import ToolbarService from "@/services/toolbar.service";
 import { setPortalColor } from "@/core/helpers/portal-color";
-import { ViewportScroller } from '@angular/common';
+import { ViewportScroller } from "@angular/common";
 
 @Injectable({ providedIn: "root" })
 export class RouterListenerService {
@@ -30,11 +30,11 @@ export class RouterListenerService {
           setPortalColor("#f98a75");
         }
 
-        if (this.authStore.isMembershipExpired() && to?.data?.['name'] !== "account-profile") {
-          this.router.navigate(["/account-profile"]);
+        if (this.authStore.isMembershipExpired() && to?.data?.["name"] !== "account-profile") {
+          this.router.navigate(["/personal/account-profile"]);
         }
 
-        document.title = (to?.data?.['title'] ?? "Member Portal") + " | adv+";
+        document.title = (to?.data?.["title"] ?? "Member Portal") + " | adv+";
 
         // Scroll page to top on every route change
         setTimeout(() => window.scrollTo(0, 0), 100);
@@ -42,7 +42,7 @@ export class RouterListenerService {
 
     this.router.events
       .pipe(filter((e): e is Scroll => e instanceof Scroll))
-      .subscribe((event) => {
+      .subscribe(event => {
         setTimeout(() => {
           if (event.position) {
             this.viewportScroller.scrollToPosition(event.position);

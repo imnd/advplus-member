@@ -40,7 +40,7 @@ export default interface UserInterface {
 }
 
 export interface UserAuthInfo {
-  errors: unknown
+  errors: Record<string, string>
   user: UserInterface
   isAuthenticated: boolean
 }

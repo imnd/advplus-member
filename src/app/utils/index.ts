@@ -2,7 +2,7 @@
 export * from '@/utils/models/OffsetModel'
 export * from '@/utils/models/ViewPortModel'
 // Helpers
-export * from './dom-helpers.util'
+export * from '@/core/helpers/dom-helpers'
 export * from './types.helpers.util'
 // Basic
 export * from './data.util'

@@ -1,0 +1,17 @@
+@if (total() && !(hideOnSinglePage() && pageCount() <= 1)) {
+  <ul class="pagination" [class.pagination--background]="background()">
+    <li class="page-item" [class.disabled]="currentPage() === 1">
+      <a class="page-link" (click)="currentChange.emit(currentPage() - 1)">‹</a>
+    </li>
+
+    @for (page of visiblePages(); track page) {
+      <li class="page-item" [class.active]="page === currentPage()">
+        <a class="page-link" (click)="currentChange.emit(page)">{{ page }}</a>
+      </li>
+    }
+
+    <li class="page-item" [class.disabled]="currentPage() === pageCount()">
+      <a class="page-link" (click)="currentChange.emit(currentPage() + 1)">›</a>
+    </li>
+  </ul>
+}

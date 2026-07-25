@@ -1,1 +1,14 @@
-<p>footer works!</p>
+<div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
+  <div
+    class="d-flex flex-column flex-md-row align-items-center justify-content-end"
+    [class]="{
+        'container-fluid': footerWidthFluid(),
+        'container-xxl': !footerWidthFluid(),
+    }"
+  >
+    <div class="text-muted order-2 order-md-1 d-inline-block fs-7 text-center">
+      <span class="fw-bold me-1">{{ getFullYear() }} &copy;</span>
+      <a href="#" class="text-muted"> All Rights Reserved - Parasol Loyalty Cards Services LLC</a>
+    </div>
+  </div>
+</div>

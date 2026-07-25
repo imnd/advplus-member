@@ -4,21 +4,20 @@ import JwtService from '@/services/jwt.service';
 import ApiService from '@/services/api.service';
 import { setPortalColor } from '@/core/helpers/portal-color';
 import * as Sentry from '@sentry/angular';
-import { AxiosRequestConfig } from 'axios';
 import { Router } from '@angular/router';
 import { BodyStore } from '@/store/body';
 
 import UserInterface, { UserData } from '@/app/types/UserInterface';
 import { UserAuthInfo } from '@/app/types/UserInterface';
-import { catchError, finalize, firstValueFrom, map, Observable, tap, throwError } from 'rxjs';
+import { catchError, finalize, map, Observable, tap, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 interface UserInfo extends UserAuthInfo {
-  isLoading: boolean;
+  isLoading: boolean
 }
 
 interface AuthData {
-  access_token: string;
+  access_token: string
 }
 
 export interface Credentials {
@@ -26,11 +25,26 @@ export interface Credentials {
   password: string
 }
 
+export interface ForgotPasswordData {
+  email: string
+}
+
+export interface ChangePasswordData {
+  old_password: string
+  new_password: string
+}
+
+export interface ResetPasswordData {
+  token: string
+  password: string
+  password_confirmation: string
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthStore {
   private router = inject(Router);
   private bodyStore = inject(BodyStore);
-  private http = inject(HttpClient);
+  private http: HttpClient = inject(HttpClient);
   private api = inject(ApiService);
 
   private state = signal<UserInfo>({
@@ -75,7 +89,7 @@ export class AuthStore {
       this.state.update(s => ({
         ...s,
         isAuthenticated: true,
-        errors: []
+        errors: {}
       }));
       JwtService.saveTokens(data);
     } else {
@@ -115,20 +129,18 @@ export class AuthStore {
     this.purgeAuth();
   }
 
-  async forgotPassword(payload: { email: string }): Promise<AuthData> {
-    return firstValueFrom(
-      this.api
-        .post<AuthData>('auth/forgot-password', payload)
-        .pipe(
-          catchError((error: HttpErrorResponse) => {
-            this.setError(error.error);
-            return throwError(() => error);
-          })
-        )
-    );
+  forgotPassword(payload: ForgotPasswordData): Observable<AuthData> {
+    return this.api
+      .post<AuthData>('auth/forgot-password', payload)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.setError(error.error);
+          return throwError(() => error);
+        })
+      );
   }
 
-  async resetPassword(payload: AxiosRequestConfig): Promise<Observable<AuthData>> {
+  resetPassword(payload: ResetPasswordData): Observable<AuthData> {
     return this.api
       .post<AuthData>('reset-password', payload)
       .pipe(
@@ -154,7 +166,7 @@ export class AuthStore {
       );
   }
 
-  changePassword(payload: { old_password: string; new_password: string }): Observable<unknown> {
+  changePassword(payload: ChangePasswordData): Observable<unknown> {
     return this.api
       .post<AuthData>('auth/forgot-password', payload)
       .pipe(
@@ -176,8 +188,8 @@ export class AuthStore {
     return this.http.post<{ access_token: string; errors?: any }>('auth/refresh-token', {
       refresh_token: refreshToken
     }).pipe(
-      tap(data => this.setAuth(data)),
-      map(data => data.access_token),
+      tap((data: AuthData) => this.setAuth(data)),
+      map((data: AuthData) => data.access_token),
       catchError(err => {
         this.setError(err.error?.errors ?? err.error);
         this.purgeAuth();
@@ -189,6 +201,7 @@ export class AuthStore {
   async verifyAuth() {
     return new Promise((resolve, reject) => {
       if (!JwtService.getAccessToken()) {
+        this.purgeAuth();
         return reject();
       }
 

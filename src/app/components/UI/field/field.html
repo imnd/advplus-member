@@ -1,0 +1,39 @@
+<div class="fv-row mb-10" [formGroup]="form">
+  @if (label) {
+    <div class="d-flex flex-stack mb-2">
+      <label class="form-label fs-6 fw-bolder text-dark">{{ label }}</label>
+    </div>
+  }
+  <div [class]="wrapperClass">
+    <div class="position-relative mb-3">
+      @if (type === 'text' || type == 'password') {
+        <input
+          [type]='type'
+          [formControlName]="name"
+          [autocomplete]="autocomplete"
+          [placeholder]="placeholder ?? ''"
+          class="form-control form-control-lg form-control-solid"
+        />
+      } @else if (type == 'select') {
+        <select
+          [formControlName]="name"
+          class="form-control form-control-lg form-control-solid"
+        >
+          @for (option of options; track option) {
+            <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+      }
+      @if (type == 'password') {
+        <span
+          class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+          (click)="togglePasswordVisibility()"
+        >
+        <i class="bi" [class.bi-eye-slash]="!showPassword()" [class.bi-eye]="showPassword()"></i>
+      </span>
+      }
+      <ng-content />
+    </div>
+    <app-error-message [name]="name" [form]="form" />
+  </div>
+</div>
